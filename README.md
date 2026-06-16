@@ -87,5 +87,5 @@ Follow these precise steps to set up the environment, replicate the baseline ben
 ### Step 1: Clone this Repository
 Begin by cloning the benchmarking framework to your local instance or cloud environment:
 ```bash
-git clone [https://github.com/](https://github.com/)<YOUR_GITHUB_USERNAME>/llama3-optimization-benchmark.git
+git clone https://github.com/jollygaging/llama3-optimization-benchmark.git
 cd llama3-optimization-benchmark
