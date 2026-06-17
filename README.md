@@ -89,3 +89,30 @@ Begin by cloning the benchmarking framework to your local instance or cloud envi
 ```bash
 git clone https://github.com/jollygaging/llama3-optimization-benchmark.git
 cd llama3-optimization-benchmark
+```
+### Step 2: Install Dependencies
+Install the required deep learning and model compression packages specified in the environment manifest:
+```bash
+pip install -r requirements.txt
+```
+### Step 3: Configure Authentication
+Before running the benchmark notebook, execute the following command in your terminal or a code cell to authenticate your session with Hugging Face:
+```bash
+from huggingface_hub import login
+login(token="YOUR_HUGGING_FACE_ACCESS_TOKEN")
+```
+### Step 4: Execute the Benchmarking Notebooks
+1)Open and execute the master notebook to generate the performance logs:
+Navigate to the notebooks/ directory and open llama3_benchmark.ipynb.
+
+2)Run Part 1 (FP16 Baseline Control Group): This loads the uncompressed model into memory, running execution checks against the target evaluation prompts. It generates and saves data/baseline_fp16_results.json, locking in the initial ~11.95 GB VRAM utilization and ~1.18 tokens/sec generation metric.
+
+3)Run Part 2 (4-bit NF4 Quantization Treatment Group): This initiates the bitsandbytes quantization config pipeline, freezing the model base weights down to 4-bit precision. It executes identical prompt tasks and saves data/quantized_4bit_results.json.
+
+### Step 5: Metric Verification & Data Generation
+Once execution completes, confirm that your generated performance arrays match the logs inside the data/ folder. The built-in compilation code will print out a comparative analytics table showing:
+
+Exact VRAM capacity reclaimed (re-allocating the ~11.95 GB baseline overhead).
+
+Relative latency changes and generation speed modifications (tokens/second scale metrics).
+
